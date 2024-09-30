@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
 
 const workoutRoutes = require("./routes/workoutRoutes");
 
@@ -20,7 +21,15 @@ app.use((req, res, next) => {
 //when making calls to /api/workouts, these routes are used
 app.use("/api/workouts", workoutRoutes);
 
-//2. listening for request on certain port number
-app.listen(process.env.PORT, () => {
-  console.log("Listening on port", process.env.PORT);
-});
+//connecting to the database:
+mongoose
+  .connect(process.env.MONGO_URI) //asynchronous -> returns a promise
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      //only listening to request once we are connected
+      console.log("Connected to db & listening on port", process.env.PORT);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
