@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 const WorkoutForm = () => {
-  //creating state for every input field (when user types into input fields, it updates the state for that field)
+  const { dispatch } = useWorkoutsContext();
+
   const [title, setTitle] = useState("");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
@@ -32,6 +34,7 @@ const WorkoutForm = () => {
       setReps("");
       setError(null);
       console.log("New workout successfully added");
+      dispatch({type: "CREATE_WORKOUT", payload: json})
     }
   };
 
