@@ -5,12 +5,20 @@ export const WorkoutsContext = createContext();
 
 //3. reducer function = updates the state based on type of the action that was dispatched
 // and using the data received in the action payload
-export const workoutsReducer = (state, action) => {   //state = reliable state value before making the change
+export const workoutsReducer = (state, action) => {
+  //state = reliable state value before making the change
   switch (action.type) {
     case "SET_WORKOUTS":
-      return { workouts: action.payload };    //return the new value we want the state to be in
+      return { workouts: action.payload }; //return the new value we want the state to be in
     case "CREATE_WORKOUT":
       return { workouts: [action.payload, ...state.workouts] }; //new workout + old workouts from the state
+    case "DELETE_WORKOUT":
+      return {
+        //go through the currently stored workouts
+        workouts: state.workouts.filter(
+          (workout) => workout._id !== action.payload._id //return those whose id doesn't match the one we want to delete
+        ),
+      };
     default:
       return state;
   }

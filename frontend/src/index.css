@@ -20,7 +20,7 @@ header .container {
   padding: 10px 20px;
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: space-between;
 }
 header a {
   color: #333;
@@ -96,4 +96,8 @@ div.error {
   color: var(--error);
   border-radius: 4px;
   margin: 20px 0;
+}
+
+input.error {
+  border: 1px solid var(--error);
 }
