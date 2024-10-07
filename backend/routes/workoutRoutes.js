@@ -8,8 +8,14 @@ const {
   deleteWorkout,
 } = require("../controllers/workoutController");
 
+const AuthMiddleware = require("../middleware/AuthMiddleware");
+
 //1. create an instance of the Express router
 const router = express.Router();
+
+//fires middleware function before all other request/functions
+//because in order to do anything, user has to be logged in
+router.use(AuthMiddleware);
 
 //defined routes (request handlers)
 
